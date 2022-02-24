@@ -1,0 +1,33 @@
+# 'dircolors -b' outputs a command line which sets environment variable LS_COLORS.
+# ls tool from GNU binutils recognizes this.
+
+FS_CUSTOMIZED_BASH_DIRCOLORS_EXE=
+for FS_CUSTOMIZED_BASH_DIRCOLORS_PER in ${FS_CUSTOMIZED_BASH_DIRCOLORS[*]}; do
+	if [ -e ${FS_CUSTOMIZED_BASH_DIRCOLORS_PER} ]; then
+		FS_CUSTOMIZED_BASH_DIRCOLORS_EXE=${FS_CUSTOMIZED_BASH_DIRCOLORS_PER}
+		break
+	fi
+done
+
+if ! [ -z "$FS_CUSTOMIZED_BASH_DIRCOLORS_EXE" ] ; then
+	# maybe "ls --color=auto" can be used to judge it? Non-GNU-Coreutils ls may be not able to recognize "--color" parameter and may just error out.
+	# We may try "gls" first and do not try "ls" if "gls" is available
+	if which -a gls > /dev/null 2> /dev/null ; then
+		# gls is found and is being used
+		alias ls="gls --color=auto"
+	elif ls --color=auto /dev/null > /dev/null 2> /dev/null; then
+		# ls --color=auto is proven usable
+		# "/dev/null" must be an accessable file since it is a standard file which contains null character device
+		alias ls="ls --color=auto"
+	else
+		Fs_Customized_Bash_log warn "Warning:" Neither "'gls'" nor "'ls --color=auto'" works in this system while "'dircolors'" works.
+		Fs_Customized_Bash_log warn Check installation of your distribution for how "'GNU-ls --color=auto'" is invoked, and modify ${BASH_SOURCE} for logic of detecting it.
+	fi
+
+	eval "$("$FS_CUSTOMIZED_BASH_DIRCOLORS_EXE" -b)"
+else
+	Fs_Customized_Bash_log warn None of dircolors exetutable works as set in FS_CUSTOMIZED_BASH_DIRCOLORS
+	Fs_Customized_Bash_log warn Check installation of your distribution for how "'dircolors'" is invoked, and add it in conf.fsbash
+fi
+
+unset FS_CUSTOMIZED_BASH_DIRCOLORS_EXE

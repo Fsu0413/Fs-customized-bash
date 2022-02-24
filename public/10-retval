@@ -1,0 +1,10 @@
+
+Fs_Customized_Bash_retval_func()
+{
+	local FS_RETVAL_V=$?
+	if [ $FS_RETVAL_V -ne 0 ]; then
+		echo "$FS_RETVAL_V"' '
+	fi
+	return $FS_RETVAL_V
+}
+

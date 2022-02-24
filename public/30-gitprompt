@@ -1,0 +1,24 @@
+# 'git_prompt.sh' is a tool which comes from git. It adds a function called '__git_ps1'.
+# This function outputs a descriptive annotion of git version control in current directory when called.
+
+FS_CUSTOMIZED_BASH_GIT_PROMPT_EXE=
+for FS_CUSTOMIZED_BASH_GIT_PROMPT_PER in ${FS_CUSTOMIZED_BASH_GIT_PROMPT[*]}; do
+	if [ -e ${FS_CUSTOMIZED_BASH_GIT_PROMPT_PER} ]; then
+		FS_CUSTOMIZED_BASH_GIT_PROMPT_EXE=${FS_CUSTOMIZED_BASH_GIT_PROMPT_PER}
+		break
+	fi
+done
+
+if ! [ -z "$FS_CUSTOMIZED_BASH_GIT_PROMPT_EXE" ] ; then
+	. "$FS_CUSTOMIZED_BASH_GIT_PROMPT_EXE"
+else
+	Fs_Customized_Bash_log warn None of git-prompt.sh exetutable works as set in FS_CUSTOMIZED_BASH_GIT_PROMPT
+	Fs_Customized_Bash_log warn Check installation of your distribution for how "'git-prompt.sh'" is invoked, and add it in conf.fsbash
+
+	# ... Then provide a __git_ps1 function which does nothing
+	__git_ps1() {
+		return $?
+	}
+fi
+
+unset FS_CUSTOMIZED_BASH_GIT_PROMPT_EXE
