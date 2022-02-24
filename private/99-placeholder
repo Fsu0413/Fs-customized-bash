@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# This is a placeholder and checker for Fs-customized-bash.
+# Files under this folder (except this) should NOT be submitted.
+# This is for the case if it is used in company where infomation security takes place.
+
+# This file must have name "99-placeholder" since this file checks it.
+
+# since this file is sourced, we can use ${BASH_SOURCE[0]} to get path of this file.
+
+# unset this variable every time we are checking it.
+
+unset FS_CUSTOMIZED_BASH_SUBMITTED_FILES_IN_PRIVATE
+
+FS_CUSTOMIZED_BASH_PRIVATE_PATH="${FS_CUSTOMIZED_BASH_ROOT}/private"
+
+if ! [ -d "${FS_CUSTOMIZED_BASH_PRIVATE_PATH}/../.git" ]; then
+	# We are not using a Git checkout.
+	unset FS_CUSTOMIZED_BASH_PRIVATE_PATH
+	return 0
+fi
+
+if [ -d "${FS_CUSTOMIZED_BASH_PRIVATE_PATH}/.git" ] ; then
+	# Someone created a git repository here.
+	unset FS_CUSTOMIZED_BASH_PRIVATE_PATH
+	return 0
+fi
+
+FS_CUSTOMIZED_BASH_PRIVATE_CACHED_FILENAMES=$(git -C `realpath "${FS_CUSTOMIZED_BASH_PRIVATE_PATH}"` ls-files)
+
+if [ $? -ne 0 ]; then
+	# We are probably not using a Git checkout. But since we detected this... Let it be.
+	unset FS_CUSTOMIZED_BASH_PRIVATE_CACHED_FILENAMES
+	unset FS_CUSTOMIZED_BASH_PRIVATE_PATH
+	return 0
+fi
+
+# kill spaces from this variable
+FS_CUSTOMIZED_BASH_PRIVATE_CACHED_FILENAMES=`echo ${FS_CUSTOMIZED_BASH_PRIVATE_CACHED_FILENAMES}`
+
+if ! [ "x${FS_CUSTOMIZED_BASH_PRIVATE_CACHED_FILENAMES}" = "x99-placeholder" ]; then
+	echo "WARNING: file other than 99-placeholder is submitted or cached in \"${FS_CUSTOMIZED_BASH_ROOT}/private\" folder." >&2
+	echo "This folder should only have the only 99-placeholder file submitted to public repository. Other files are treated as private ones." >&2
+	FS_CUSTOMIZED_BASH_SUBMITTED_FILES_IN_PRIVATE=true
+	export FS_CUSTOMIZED_BASH_SUBMITTED_FILES_IN_PRIVATE
+fi
+
+unset FS_CUSTOMIZED_BASH_PRIVATE_CACHED_FILENAMES
+unset FS_CUSTOMIZED_BASH_PRIVATE_PATH
