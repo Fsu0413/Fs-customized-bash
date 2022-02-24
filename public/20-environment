@@ -1,0 +1,16 @@
+
+Fs_Customized_Bash_environment_func()
+{
+	FS_ENV_V=$?
+	if ! [ -z "$MSYSTEM" ]; then
+		# MSYS2 case
+		echo ' '"$MSYSTEM"
+	else
+		local UNAMES="`uname -s`"
+		if echo $UNAMES | grep -q -F -i "cygwin"; then
+			UNAMES="Cygwin"
+		fi
+		echo ' '"$UNAMES"
+	fi
+	return $FS_ENV_V
+}

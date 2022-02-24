@@ -1,0 +1,11 @@
+
+Fs_Customized_Bash_broken_private()
+{
+	local ret=$?
+	if ! [ -z "${FS_CUSTOMIZED_BASH_SUBMITTED_FILES_IN_PRIVATE}" ]; then
+		if ${FS_CUSTOMIZED_BASH_SUBMITTED_FILES_IN_PRIVATE}; then
+			echo "FS_CUSTOMIZED_BASH CONTENTS ARE SUBMITTED IN PRIVATE "
+		fi
+	fi
+	return $ret
+}

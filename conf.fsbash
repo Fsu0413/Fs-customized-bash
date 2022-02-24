@@ -1,0 +1,42 @@
+# Fs-bash magic
+FS_CUSTOMIZED_BASH_MAGIC="Fsu0413 Customized Bash Environment"
+
+# Fs-bash version
+FS_CUSTOMIZED_BASH_VERSION_MAJOR=0
+FS_CUSTOMIZED_BASH_VERSION_MINOR=0
+FS_CUSTOMIZED_BASH_VERSION_PATCH=0
+FS_CUSTOMIZED_BASH_VERSION="${FS_CUSTOMIZED_BASH_VERSION_MAJOR}.${FS_CUSTOMIZED_BASH_VERSION_MINOR}.${FS_CUSTOMIZED_BASH_VERSION_PATCH}"
+
+# Log color
+FS_CUSTOMIZED_BASH_COLOR_LOG='\e[3;32m'
+FS_CUSTOMIZED_BASH_COLOR_WARN='\e[0;33m'
+FS_CUSTOMIZED_BASH_COLOR_ERROR='\e[1;31m'
+FS_CUSTOMIZED_BASH_COLOR_CLEAR='\e[0;0m'
+
+# Path of dircolors
+# Since some distribution don't have GNU coreutils builtin, we should use a list for it and try to find GNU coreutils afterwards for aliasing
+# maybe "ls --color=auto" can be used to judge it? Non-GNU-Coreutils ls may be not able to recognize "--color" parameter and may just error out.
+# We may try "gls" first and do not try "ls" if "gls" is available
+declare -a FS_CUSTOMIZED_BASH_DIRCOLORS
+FS_CUSTOMIZED_BASH_DIRCOLORS[0]="/usr/bin/dircolors"
+FS_CUSTOMIZED_BASH_DIRCOLORS[1]="/opt/homebrew/bin/gdircolors"
+# add anything to this list if needed
+
+# Path of lesspipe
+# not that useful...
+declare -a FS_CUSTOMIZED_BASH_LESSPIPE
+FS_CUSTOMIZED_BASH_LESSPIPE[0]="/usr/bin/lesspipe"
+
+# Path of git-prompt.sh
+# It exports a function called '__git_ps1' This function is called when constructing PS1.
+declare -a FS_CUSTOMIZED_BASH_GIT_PROMPT
+FS_CUSTOMIZED_BASH_GIT_PROMPT[0]="/usr/lib/git-core/git-sh-prompt" # Ubuntu
+FS_CUSTOMIZED_BASH_GIT_PROMPT[1]="/usr/share/git/completion/git-prompt.sh" # MSYS2
+FS_CUSTOMIZED_BASH_GIT_PROMPT[2]="/usr/share/git/git-prompt.sh" # Arch Linux
+FS_CUSTOMIZED_BASH_GIT_PROMPT[3]="/Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-prompt.sh" # macOS Git within Xcode
+# add anything to this list if needed.
+
+declare -a FS_CUSTOMIZED_BASH_COMPLETION
+FS_CUSTOMIZED_BASH_COMPLETION[0]="/opt/homebrew/etc/profile.d/bash_completion.sh" # macOS arm64 homebrew
+# Add more settings if needed.
+
