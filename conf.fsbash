@@ -38,7 +38,8 @@ FS_CUSTOMIZED_BASH_GIT_PROMPT[3]="/Applications/Xcode.app/Contents/Developer/usr
 # add anything to this list if needed.
 
 declare -a FS_CUSTOMIZED_BASH_COMPLETION
-FS_CUSTOMIZED_BASH_COMPLETION[0]="/opt/homebrew/etc/profile.d/bash_completion.sh" # macOS arm64 homebrew
-FS_CUSTOMIZED_BASH_COMPLETION[1]="/usr/local/etc/profile.d/bash_completion.sh" # macOS arm64 homebrew
+FS_CUSTOMIZED_BASH_COMPLETION[0]="/usr/share/bash-completion/bash_completion" # Arch Linux
+FS_CUSTOMIZED_BASH_COMPLETION[1]="/opt/homebrew/etc/profile.d/bash_completion.sh" # macOS arm64 homebrew
+FS_CUSTOMIZED_BASH_COMPLETION[2]="/usr/local/etc/profile.d/bash_completion.sh" # macOS arm64 homebrew
 # Add more settings if needed.
 
