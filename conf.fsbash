@@ -20,6 +20,7 @@ FS_CUSTOMIZED_BASH_COLOR_CLEAR='\e[0;0m'
 declare -a FS_CUSTOMIZED_BASH_DIRCOLORS
 FS_CUSTOMIZED_BASH_DIRCOLORS[0]="/usr/bin/dircolors"
 FS_CUSTOMIZED_BASH_DIRCOLORS[1]="/opt/homebrew/bin/gdircolors"
+FS_CUSTOMIZED_BASH_DIRCOLORS[2]="/usr/local/bin/gdircolors"
 # add anything to this list if needed
 
 # Path of lesspipe
@@ -38,5 +39,6 @@ FS_CUSTOMIZED_BASH_GIT_PROMPT[3]="/Applications/Xcode.app/Contents/Developer/usr
 
 declare -a FS_CUSTOMIZED_BASH_COMPLETION
 FS_CUSTOMIZED_BASH_COMPLETION[0]="/opt/homebrew/etc/profile.d/bash_completion.sh" # macOS arm64 homebrew
+FS_CUSTOMIZED_BASH_COMPLETION[1]="/usr/local/etc/profile.d/bash_completion.sh" # macOS arm64 homebrew
 # Add more settings if needed.
 
