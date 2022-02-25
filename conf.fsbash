@@ -34,7 +34,8 @@ declare -a FS_CUSTOMIZED_BASH_GIT_PROMPT
 FS_CUSTOMIZED_BASH_GIT_PROMPT[0]="/usr/lib/git-core/git-sh-prompt" # Ubuntu
 FS_CUSTOMIZED_BASH_GIT_PROMPT[1]="/usr/share/git/completion/git-prompt.sh" # MSYS2
 FS_CUSTOMIZED_BASH_GIT_PROMPT[2]="/usr/share/git/git-prompt.sh" # Arch Linux
-FS_CUSTOMIZED_BASH_GIT_PROMPT[3]="/Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-prompt.sh" # macOS Git within Xcode
+FS_CUSTOMIZED_BASH_GIT_PROMPT[3]="/usr/share/git-core/contrib/completion/git-prompt.sh" # Rocky Linux 8 (maybe for other Redhat based?)
+FS_CUSTOMIZED_BASH_GIT_PROMPT[4]="/Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-prompt.sh" # macOS Git within Xcode
 # add anything to this list if needed.
 
 declare -a FS_CUSTOMIZED_BASH_COMPLETION
