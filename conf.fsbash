@@ -21,6 +21,7 @@ declare -a FS_CUSTOMIZED_BASH_DIRCOLORS
 FS_CUSTOMIZED_BASH_DIRCOLORS[0]="/usr/bin/dircolors"
 FS_CUSTOMIZED_BASH_DIRCOLORS[1]="/opt/homebrew/bin/gdircolors"
 FS_CUSTOMIZED_BASH_DIRCOLORS[2]="/usr/local/bin/gdircolors"
+FS_CUSTOMIZED_BASH_DIRCOLORS[3]="/data/data/com.termux/files/usr/bin/dircolors"
 # add anything to this list if needed
 
 # Path of lesspipe
@@ -36,11 +37,13 @@ FS_CUSTOMIZED_BASH_GIT_PROMPT[1]="/usr/share/git/completion/git-prompt.sh" # MSY
 FS_CUSTOMIZED_BASH_GIT_PROMPT[2]="/usr/share/git/git-prompt.sh" # Arch Linux
 FS_CUSTOMIZED_BASH_GIT_PROMPT[3]="/usr/share/git-core/contrib/completion/git-prompt.sh" # Rocky Linux 8 (maybe for other Redhat based?)
 FS_CUSTOMIZED_BASH_GIT_PROMPT[4]="/Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-prompt.sh" # macOS Git within Xcode
+FS_CUSTOMIZED_BASH_GIT_PROMPT[5]="/data/data/com.termux/files/usr/etc/bash_completion.d/git-prompt.sh" # weird path where Termux decided to put the git-prompt in bash-completion?!
 # add anything to this list if needed.
 
 declare -a FS_CUSTOMIZED_BASH_COMPLETION
 FS_CUSTOMIZED_BASH_COMPLETION[0]="/usr/share/bash-completion/bash_completion" # Arch Linux
 FS_CUSTOMIZED_BASH_COMPLETION[1]="/opt/homebrew/etc/profile.d/bash_completion.sh" # macOS arm64 homebrew
-FS_CUSTOMIZED_BASH_COMPLETION[2]="/usr/local/etc/profile.d/bash_completion.sh" # macOS arm64 homebrew
+FS_CUSTOMIZED_BASH_COMPLETION[2]="/usr/local/etc/profile.d/bash_completion.sh" # macOS x86_64 homebrew
+FS_CUSTOMIZED_BASH_COMPLETION[3]="/data/data/com.termux/files/usr/etc/profile.d/bash_completion.sh" # Termux
 # Add more settings if needed.
 

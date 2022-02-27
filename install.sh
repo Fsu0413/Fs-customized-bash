@@ -64,6 +64,14 @@ fi
 if [ -e "$FS_CUSTOMIZE_BASH_INSTALL_PROFILE" ] && ( cat "$FS_CUSTOMIZE_BASH_INSTALL_PROFILE" | grep -q -F ".bashrc" ); then
 	echo "Found '.bashrc' in ${FS_CUSTOMIZE_BASH_INSTALL_PROFILE}, not modifying ${FS_CUSTOMIZE_BASH_INSTALL_PROFILE}."
 else
+	if ! [ -z "$TERMUX_VERSION" ]; then
+		echo "Note: Termux is source-ing ~/.bashrc in /prefix/usr/etc/profile (at least in default install of some version)."
+		echo "This is not typical use case since ~/.bashrc is rather user-specific and shouldn't be touched in system-wide configuration file."
+		echo
+		echo "You may examine the /prefix/usr/etc/profile to see if it loads your user-specific .bashrc. if so you may simply comment it out."
+		echo
+	fi
+
 	echo "Following contents are appended to ${FS_CUSTOMIZE_BASH_INSTALL_PROFILE}."
 	echo
 

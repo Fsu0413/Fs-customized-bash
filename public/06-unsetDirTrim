@@ -1,0 +1,6 @@
+
+# By default Termux sets PROMPT_DIRTRIM.
+# I don't like this behavior, so unset it.
+
+PROMPT_DIRTRIM=
+unset PROMPT_DIRTRIM

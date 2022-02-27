@@ -5,6 +5,9 @@ Fs_Customized_Bash_environment_func()
 	if ! [ -z "$MSYSTEM" ]; then
 		# MSYS2 case
 		echo ' '"$MSYSTEM"
+	elif ! [ -z "$TERMUX_VERSION" ]; then
+		# Termux case
+		echo ' '"Termux"
 	else
 		local UNAMES="`uname -s`"
 		if echo $UNAMES | grep -q -F -i "cygwin"; then
