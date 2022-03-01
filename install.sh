@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-FS_CUSTOMIZE_BASH_DIR=$(dirname `realpath "${0}"`)
+FS_CUSTOMIZE_BASH_DIR=$(readlink -f $(dirname "${0}"))
 
 if ! [ -e "${FS_CUSTOMIZE_BASH_DIR}/bashrc" ]; then
 	echo "${FS_CUSTOMIZE_BASH_DIR}/bashrc does not exist. Check your download of this repository." >&2
