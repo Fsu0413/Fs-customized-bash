@@ -95,6 +95,7 @@ if [ -d "${FS_CUSTOMIZED_BASH_ROOT}/public" ]; then
 		Fs_Customized_Bash_log Sourcing public file "${FS_CUSTOMIZED_BASH_PUBLIC}"
 		. "${FS_CUSTOMIZED_BASH_ROOT}/public/${FS_CUSTOMIZED_BASH_PUBLIC}"
 	done
+	unset FS_CUSTOMIZED_BASH_PUBLIC
 fi
 
 if [ -d "${FS_CUSTOMIZED_BASH_ROOT}/private" ]; then
@@ -102,6 +103,7 @@ if [ -d "${FS_CUSTOMIZED_BASH_ROOT}/private" ]; then
 		Fs_Customized_Bash_log Sourcing private file "${FS_CUSTOMIZED_BASH_PRIVATE}"
 		. "${FS_CUSTOMIZED_BASH_ROOT}/private/${FS_CUSTOMIZED_BASH_PRIVATE}"
 	done
+	unset FS_CUSTOMIZED_BASH_PRIVATE
 fi
 
 Fs_Customized_Bash_log ${FS_CUSTOMIZED_BASH_MAGIC} ${FS_CUSTOMIZED_BASH_VERSION} load complete'!'
