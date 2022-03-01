@@ -26,7 +26,7 @@ if [ -d "${FS_CUSTOMIZED_BASH_PRIVATE_PATH}/.git" ] ; then
 	return 0
 fi
 
-FS_CUSTOMIZED_BASH_PRIVATE_CACHED_FILENAMES=$(git -C `realpath "${FS_CUSTOMIZED_BASH_PRIVATE_PATH}"` ls-files)
+FS_CUSTOMIZED_BASH_PRIVATE_CACHED_FILENAMES=$(git -C "${FS_CUSTOMIZED_BASH_PRIVATE_PATH}" ls-files)
 
 if [ $? -ne 0 ]; then
 	# We are probably not using a Git checkout. But since we detected this... Let it be.

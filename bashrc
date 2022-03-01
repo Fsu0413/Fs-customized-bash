@@ -40,17 +40,12 @@ fi
 # Since here, we can confirm that our script is being sourced.
 unset FS_CUSTOMIZED_BASH_VERSION_SUPPORTED
 
-if ! ( realpath --help > /dev/null 2> /dev/null ); then
-	echo "realpath is needed for executing this script. Please install realpath from your package manager." >&2
-	return 1
-fi
-
 if ! ( which ${SHELL} > /dev/null 2> /dev/null ); then
 	echo "which is needed for executing this script. Please install which from your package manager." >&2
 	return 1
 fi
 
-FS_CUSTOMIZED_BASH_ROOT=$(dirname `realpath "${BASH_SOURCE[0]}"`)
+FS_CUSTOMIZED_BASH_ROOT=$(dirname "${BASH_SOURCE[0]}")
 
 if [ -r "${FS_CUSTOMIZED_BASH_ROOT}/conf.fsbash" ]; then
 	. "${FS_CUSTOMIZED_BASH_ROOT}/conf.fsbash"
