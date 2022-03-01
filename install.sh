@@ -1,6 +1,36 @@
 #!/usr/bin/env bash
 
-FS_CUSTOMIZE_BASH_DIR=$(readlink -f $(dirname "${0}"))
+# readlink -f is not portable, damn it....
+
+if ! ( which ${SHELL} > /dev/null 2> /dev/null ); then
+	echo "which is needed for executing this script. Please install which from your package manager." >&2
+	exit 1
+fi
+
+if which realpath > /dev/null 2> /dev/null; then
+	FS_CUSTOMIZE_BASH_DIR=$(realpath $(dirname "${0}"))
+else
+	FS_CUSTOMIZED_BASH_GNU_READLINK=
+
+	# GNU readlink reads '--help' while macOS one don't.
+	# if there is 'greadlink', we use it directly without judging it.
+	if which greadlink > /dev/null 2> /dev/null; then
+		FS_CUSTOMIZED_BASH_GNU_READLINK=greadlink
+	elif which readlink > /dev/null 2> /dev/null; then
+		# check if readlink accepts '-f' as same as GNU readlink
+		FS_CUSTOMIZED_BASH_READLINK_HYPHENF_SLASH_OUTPUT=`readlink -f / 2> /dev/null`
+		if [ $? -eq 0 ] && [ "x${FS_CUSTOMIZED_BASH_READLINK_HYPHENF_SLASH_OUTPUT}" = "x/" ]; then
+			FS_CUSTOMIZED_BASH_GNU_READLINK=readlink
+		fi
+	fi
+
+	if [ "x${FS_CUSTOMIZED_BASH_GNU_READLINK}" = "x" ]; then
+		echo "Either realpath or readlink (with GNU-style '-f' parameter) is needed." >$2
+		echo "Check package manager of your system for it." >&2
+		exit 1
+	fi
+fi
+
 
 if ! [ -e "${FS_CUSTOMIZE_BASH_DIR}/bashrc" ]; then
 	echo "${FS_CUSTOMIZE_BASH_DIR}/bashrc does not exist. Check your download of this repository." >&2
