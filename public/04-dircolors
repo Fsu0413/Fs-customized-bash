@@ -8,6 +8,7 @@ for FS_CUSTOMIZED_BASH_DIRCOLORS_PER in ${FS_CUSTOMIZED_BASH_DIRCOLORS[*]}; do
 		break
 	fi
 done
+unset FS_CUSTOMIZED_BASH_DIRCOLORS_PER
 
 if ! [ -z "$FS_CUSTOMIZED_BASH_DIRCOLORS_EXE" ] ; then
 	# maybe "ls --color=auto" can be used to judge it? Non-GNU-Coreutils ls may be not able to recognize "--color" parameter and may just error out.

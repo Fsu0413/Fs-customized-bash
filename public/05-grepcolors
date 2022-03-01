@@ -16,3 +16,5 @@ if [ -z "${FS_CUSTOMIZED_BASH_GREP}" ]; then
 else
 	alias grep="${FS_CUSTOMIZED_BASH_GREP} --color=auto"
 fi
+
+unset FS_CUSTOMIZED_BASH_GREP
