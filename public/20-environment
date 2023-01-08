@@ -16,6 +16,13 @@ Fs_Customized_Bash_environment_func()
 		local UNAMES="`uname -s`"
 		if echo $UNAMES | grep -q -F -i "cygwin"; then
 			UNAMES="Cygwin"
+		elif [ "$UNAMES" = "Darwin" ]; then
+			# macOS case?
+			SWVERS="`sw_vers -productVersion`"
+			if [ $? -eq 0 ] && ( ! [ -z "$SWVERS" ] ); then
+				# no plan for supporting pre-10.15
+				UNAMES='macOS_'"$SWVERS"
+			fi
 		fi
 		echo ' '"$UNAMES"
 	fi
