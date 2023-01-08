@@ -7,7 +7,7 @@ Fs_Customized_Bash_environment_func()
 		echo ' '"$MSYSTEM"
 	elif ! [ -z "$TERMUX_VERSION" ]; then
 		# Termux case
-		echo ' '"Termux"
+		echo ' Termux_'"$TERMUX_VERSION"
 	elif [ -r /etc/os-release ]; then
 		# on system which features a /etc/os-release in file system, use it
 		# We use the first word of the "NAME" entry
