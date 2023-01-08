@@ -11,7 +11,14 @@ Fs_Customized_Bash_environment_func()
 	elif [ -r /etc/os-release ]; then
 		# on system which features a /etc/os-release in file system, use it
 		# We use the first word of the "NAME" entry
-		echo ' '`(. /etc/os-release ; echo $NAME | sed 's/^\(.[^[:space:]]*\).*$/\1/')`
+		(
+			. /etc/os-release
+			ENVIRONMENT_NAME=`echo $NAME | sed 's/^\(.[^[:space:]]*\).*$/\1/'`
+			if ! [ -z "$VERSION_ID" ] ; then
+				ENVIRONMENT_NAME="$ENVIRONMENT_NAME"'_'"$VERSION_ID"
+			fi
+			echo " $ENVIRONMENT_NAME"
+		)
 	else
 		local UNAMES="`uname -s`"
 		if echo $UNAMES | grep -q -F -i "cygwin"; then
