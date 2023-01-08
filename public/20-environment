@@ -14,7 +14,7 @@ Fs_Customized_Bash_environment_func()
 		(
 			. /etc/os-release
 			ENVIRONMENT_NAME=`echo $NAME | sed 's/^\(.[^[:space:]]*\).*$/\1/'`
-			if ! [ -z "$VERSION_ID"] ; then
+			if ! [ -z "$VERSION_ID" ] ; then
 				ENVIRONMENT_NAME="$ENVIRONMENT_NAME"'_'"$VERSION_ID"
 			fi
 			echo " $ENVIRONMENT_NAME"
