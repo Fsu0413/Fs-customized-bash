@@ -1,8 +1,18 @@
-PATH=/usr/local/bin:$HOME/bin:$PATH
+PATH="/usr/local/bin:${PATH}"
+
+# Ubuntu local binary files use $HOME/bin
+if [ -d "${HOME}/bin" ]; then
+	PATH="${HOME}/bin:${PATH}"
+fi
 
 # macOS aarch64 homebrew lies on /opt/homebrew/bin
 if [ x`uname -s` = "xDarwin" ]; then
 	if [ -d /opt/homebrew/bin ]; then
-		PATH=/opt/homebrew/bin:$PATH
+		PATH="/opt/homebrew/bin:${PATH}"
 	fi
+fi
+
+# python pip use $HOME/.local/bin
+if [ -d "${HOME}/.local/bin" ]; then
+	PATH="${HOME}/.local/bin:${PATH}"
 fi
