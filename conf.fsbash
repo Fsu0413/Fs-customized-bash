@@ -39,6 +39,7 @@ FS_CUSTOMIZED_BASH_GIT_PROMPT[3]="/usr/share/git-core/contrib/completion/git-pro
 FS_CUSTOMIZED_BASH_GIT_PROMPT[4]="/Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-prompt.sh" # macOS Git within Xcode
 FS_CUSTOMIZED_BASH_GIT_PROMPT[5]="/Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh" # macOS Git within CommandLineTools
 FS_CUSTOMIZED_BASH_GIT_PROMPT[6]="/data/data/com.termux/files/usr/etc/bash_completion.d/git-prompt.sh" # weird path where Termux decided to put the git-prompt in bash-completion?!
+FS_CUSTOMIZED_BASH_GIT_PROMPT[7]="/usr/local/share/git-core/contrib/completion/git-prompt.sh" # FreeBSD pkg
 # add anything to this list if needed.
 
 declare -a FS_CUSTOMIZED_BASH_COMPLETION
@@ -46,5 +47,6 @@ FS_CUSTOMIZED_BASH_COMPLETION[0]="/usr/share/bash-completion/bash_completion" # 
 FS_CUSTOMIZED_BASH_COMPLETION[1]="/opt/homebrew/etc/profile.d/bash_completion.sh" # macOS arm64 homebrew
 FS_CUSTOMIZED_BASH_COMPLETION[2]="/usr/local/etc/profile.d/bash_completion.sh" # macOS x86_64 homebrew
 FS_CUSTOMIZED_BASH_COMPLETION[3]="/data/data/com.termux/files/usr/etc/profile.d/bash_completion.sh" # Termux
+FS_CUSTOMIZED_BASH_COMPLETION[4]="/usr/local/share/bash-completion/bash_completion.sh" # FreeBSD pkg
 # Add more settings if needed.
 
