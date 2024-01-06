@@ -30,6 +30,9 @@ Fs_Customized_Bash_environment_func()
 				# no plan for supporting pre-10.15
 				UNAMES='macOS_'"$SWVERS"
 			fi
+		elif [ "$UNAMES" = "NetBSD" ]; then
+			# NetBSD kernel version is release version.
+			UNAMES="${UNAMES}_$(uname -r)"
 		fi
 		echo ' '"$UNAMES"
 	fi

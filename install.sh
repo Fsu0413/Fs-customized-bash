@@ -29,6 +29,8 @@ else
 		echo "Check package manager of your system for it." >&2
 		exit 1
 	fi
+
+	FS_CUSTOMIZE_BASH_DIR=$("${FS_CUSTOMIZED_BASH_GNU_READLINK}" -f $(dirname "${0}"))
 fi
 
 
