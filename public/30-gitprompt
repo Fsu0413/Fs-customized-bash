@@ -1,5 +1,5 @@
 # 'git_prompt.sh' is a tool which comes from git. It adds a function called '__git_ps1'.
-# This function outputs a descriptive annotion of git version control in current directory when called.
+# This function outputs a descriptive annotation of git version control in current directory when called.
 
 FS_CUSTOMIZED_BASH_GIT_PROMPT_EXE=
 for FS_CUSTOMIZED_BASH_GIT_PROMPT_PER in ${FS_CUSTOMIZED_BASH_GIT_PROMPT[*]}; do

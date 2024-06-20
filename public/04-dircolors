@@ -18,7 +18,7 @@ if ! [ -z "$FS_CUSTOMIZED_BASH_DIRCOLORS_EXE" ] ; then
 		alias ls="gls --color=auto"
 	elif ls --color=auto /dev/null > /dev/null 2> /dev/null; then
 		# ls --color=auto is proven usable
-		# "/dev/null" must be an accessable file since it is a standard file which contains null character device
+		# "/dev/null" must be an accessible file since it is a standard file which contains null character device
 		alias ls="ls --color=auto"
 	else
 		Fs_Customized_Bash_log warn "Warning:" Neither "'gls'" nor "'ls --color=auto'" works in this system while "'dircolors'" works.
