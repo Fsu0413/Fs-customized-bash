@@ -9,7 +9,7 @@ fi
 FS_CUSTOMIZED_BASH_VERSION_SUPPORTED=false
 
 if [ ${BASH_VERSINFO[0]} -eq 4 ]; then
-	if [ ${BASH_VERSINFO[0]} -ge 3 ]; then
+	if [ ${BASH_VERSINFO[1]} -ge 3 ]; then
 		FS_CUSTOMIZED_BASH_VERSION_SUPPORTED=true
 	fi
 elif [ ${BASH_VERSINFO[0]} -ge 5 ]; then
@@ -40,12 +40,7 @@ fi
 # Since here, we can confirm that our script is being sourced.
 unset FS_CUSTOMIZED_BASH_VERSION_SUPPORTED
 
-if ! ( which ${SHELL} > /dev/null 2> /dev/null ); then
-	echo "which is needed for executing this script. Please install which from your package manager." >&2
-	return 1
-fi
-
-FS_CUSTOMIZED_BASH_ROOT=$(dirname "${BASH_SOURCE[0]}")
+FS_CUSTOMIZED_BASH_ROOT="$(dirname "${BASH_SOURCE[0]}")"
 
 if [ -r "${FS_CUSTOMIZED_BASH_ROOT}/conf.fsbash" ]; then
 	. "${FS_CUSTOMIZED_BASH_ROOT}/conf.fsbash"
@@ -75,7 +70,8 @@ Fs_Customized_Bash_log()
 			;;
 	esac
 
-	local contents=`echo $@`
+	# "`echo $@`" is preserved on purpose - word splitting and quoting is expanded
+	local contents="`echo $@`"
 	if $tostderr; then
 		echo -e "$color""$contents""$FS_CUSTOMIZED_BASH_COLOR_CLEAR" >&2
 	else
@@ -83,28 +79,29 @@ Fs_Customized_Bash_log()
 	fi
 }
 
-Fs_Customized_Bash_log ${FS_CUSTOMIZED_BASH_MAGIC} ${FS_CUSTOMIZED_BASH_VERSION}
+Fs_Customized_Bash_log "${FS_CUSTOMIZED_BASH_MAGIC} ${FS_CUSTOMIZED_BASH_VERSION}"
+
+# TODO: replace < <(some_process) with "$(some_process)": < <(some_process) seems too ugly
 
 if [ -d "${FS_CUSTOMIZED_BASH_ROOT}/public" ]; then
-	for FS_CUSTOMIZED_BASH_PUBLIC in `ls -1 "${FS_CUSTOMIZED_BASH_ROOT}/public" | sort`; do
-		Fs_Customized_Bash_log Sourcing public file "${FS_CUSTOMIZED_BASH_PUBLIC}"
-		. "${FS_CUSTOMIZED_BASH_ROOT}/public/${FS_CUSTOMIZED_BASH_PUBLIC}"
-	done
+	while IFS= read -d '' FS_CUSTOMIZED_BASH_PUBLIC; do
+		Fs_Customized_Bash_log "Sourcing public file $(basename "${FS_CUSTOMIZED_BASH_PUBLIC}")"
+		. "${FS_CUSTOMIZED_BASH_PUBLIC}"
+	done < <(find "${FS_CUSTOMIZED_BASH_ROOT}/public" -type f -not -type d -print0 | sort -z)
 	unset FS_CUSTOMIZED_BASH_PUBLIC
 fi
 
 if [ -d "${FS_CUSTOMIZED_BASH_ROOT}/private" ]; then
-	for FS_CUSTOMIZED_BASH_PRIVATE in `ls -1 "${FS_CUSTOMIZED_BASH_ROOT}/private" | sort`; do
-		Fs_Customized_Bash_log Sourcing private file "${FS_CUSTOMIZED_BASH_PRIVATE}"
-		. "${FS_CUSTOMIZED_BASH_ROOT}/private/${FS_CUSTOMIZED_BASH_PRIVATE}"
-	done
+	while IFS= read -d '' FS_CUSTOMIZED_BASH_PRIVATE; do
+		Fs_Customized_Bash_log "Sourcing private file $(basename "${FS_CUSTOMIZED_BASH_PRIVATE}")"
+		. "${FS_CUSTOMIZED_BASH_PRIVATE}"
+	done < <(find "${FS_CUSTOMIZED_BASH_ROOT}/private" -type f -not -type d -print0 | sort -z)
 	unset FS_CUSTOMIZED_BASH_PRIVATE
 fi
 
-Fs_Customized_Bash_log ${FS_CUSTOMIZED_BASH_MAGIC} ${FS_CUSTOMIZED_BASH_VERSION} load complete'!'
+Fs_Customized_Bash_log "${FS_CUSTOMIZED_BASH_MAGIC} ${FS_CUSTOMIZED_BASH_VERSION} load complete!"
 
 unset Fs_Customized_Bash_log
 unset FS_CUSTOMIZED_BASH_ROOT
 
 return 0
-

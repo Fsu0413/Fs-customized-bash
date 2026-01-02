@@ -1,8 +1,8 @@
 FS_CUSTOMIZED_BASH_GREP=
 
 # treat ggrep is gnu version of grep
-if which -a ggrep > /dev/null 2> /dev/null; then
-	FS_CUSTOMIZED_BASH_GREP=ggrep	
+if command -v ggrep > /dev/null 2> /dev/null; then
+	FS_CUSTOMIZED_BASH_GREP=ggrep
 else
 	# GNU grep support -V for version
 	if grep -V | grep 'GNU grep' > /dev/null 2> /dev/null; then
