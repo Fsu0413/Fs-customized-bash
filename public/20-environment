@@ -7,24 +7,26 @@ Fs_Customized_Bash_environment_func()
 	local FS_ENV_NUM=0
 	local FS_ENV_NAME=
 
-	# Call callback func to see if there is any configured environment variables
-	for i in $(seq 0 $(expr ${FS_CUSTOMIZED_BASH_ENVIRONMENT_CALLBACK_FUNC_N} '-' 1)); do
-		local -n FS_CUSTOMIZED_BASH_ENVIRONMENT_CALLBACK_FUNC_CURRENT=FS_CUSTOMIZED_BASH_ENVIRONMENT_CALLBACK_FUNC[${i}]
-		local FS_ENV_NAME_RET=`${FS_CUSTOMIZED_BASH_ENVIRONMENT_CALLBACK_FUNC_CURRENT}`
-		if [ $? -eq 0 ] && ! [ "X$FS_ENV_NAME_RET" = "X" ]; then
-			FS_ENV_NAME="${FS_ENV_NAME_RET}"
-			FS_ENV_NUM=`expr ${FS_ENV_NUM} '+' 1`
-		fi
-	done
+	if [ ${FS_CUSTOMIZED_BASH_ENVIRONMENT_CALLBACK_FUNC_N} -gt 0 ]; then
+		# Call callback func to see if there is any configured environment variables
+		for i in $(seq 0 $(expr ${FS_CUSTOMIZED_BASH_ENVIRONMENT_CALLBACK_FUNC_N} '-' 1)); do
+			local -n FS_CUSTOMIZED_BASH_ENVIRONMENT_CALLBACK_FUNC_CURRENT=FS_CUSTOMIZED_BASH_ENVIRONMENT_CALLBACK_FUNC[${i}]
+			local FS_ENV_NAME_RET=`${FS_CUSTOMIZED_BASH_ENVIRONMENT_CALLBACK_FUNC_CURRENT}`
+			if [ $? -eq 0 ] && ! [ "X$FS_ENV_NAME_RET" = "X" ]; then
+				FS_ENV_NAME="${FS_ENV_NAME_RET}"
+				FS_ENV_NUM=`expr ${FS_ENV_NUM} '+' 1`
+			fi
+		done
+	fi
 	if [ ${FS_ENV_NUM} -eq 1 ]; then
 		echo ' '"$FS_ENV_NAME"
 	elif [ ${FS_ENV_NUM} -ge 2 ]; then
 		echo ' **MULTIPLE ENVIRONMENT DEFINITION**'
 	else
-		if ! [ -z "$MSYSTEM" ]; then
+		if [ -n "$MSYSTEM" ]; then
 			# MSYS2 case
 			echo ' '"$MSYSTEM"
-		elif ! [ -z "$TERMUX_VERSION" ]; then
+		elif [ -n "$TERMUX_VERSION" ]; then
 			# Termux case
 			echo ' Termux_'"$TERMUX_VERSION"
 		elif [ -r /etc/os-release ]; then
@@ -52,9 +54,8 @@ Fs_Customized_Bash_environment_func()
 			elif [ "$UNAMES" = "NetBSD" ]; then
 				# NetBSD kernel version is release version.
 				UNAMES="${UNAMES}_$(uname -r)"
-			else
-				echo ' '"$UNAMES"
 			fi
+			echo ' '"$UNAMES"
 		fi
 	fi
 	return $FS_ENV_V
