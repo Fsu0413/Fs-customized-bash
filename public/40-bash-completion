@@ -2,19 +2,19 @@
 # ls tool from GNU binutils recognizes this.
 
 FS_CUSTOMIZED_BASH_COMPLETION_EXE=
-for FS_CUSTOMIZED_BASH_COMPLETION_PER in ${FS_CUSTOMIZED_BASH_COMPLETION[*]}; do
-	if [ -e ${FS_CUSTOMIZED_BASH_COMPLETION_PER} ]; then
-		FS_CUSTOMIZED_BASH_COMPLETION_EXE=${FS_CUSTOMIZED_BASH_COMPLETION_PER}
+for FS_CUSTOMIZED_BASH_COMPLETION_PER in "${FS_CUSTOMIZED_BASH_COMPLETION[@]}"; do
+	if [ -e "${FS_CUSTOMIZED_BASH_COMPLETION_PER}" ]; then
+		FS_CUSTOMIZED_BASH_COMPLETION_EXE="${FS_CUSTOMIZED_BASH_COMPLETION_PER}"
 		break
 	fi
 done
 
 unset FS_CUSTOMIZED_BASH_COMPLETION_PER
 
-if ! [ -z "$FS_CUSTOMIZED_BASH_COMPLETION_EXE" ] ; then
+if [ -n "$FS_CUSTOMIZED_BASH_COMPLETION_EXE" ] ; then
 	. "$FS_CUSTOMIZED_BASH_COMPLETION_EXE"
 else
-	Fs_Customized_Bash_log warn None of working bash completion is set in FS_CUSTOMIZED_BASH_COMPLETION
+	Fs_Customized_Bash_log warn None of working bash-completion is set in FS_CUSTOMIZED_BASH_COMPLETION
 	Fs_Customized_Bash_log warn Check installation of your distribution for where bash-completion shell exists, and add it in conf.fsbash
 fi
 

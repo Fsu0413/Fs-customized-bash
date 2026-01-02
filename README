@@ -1,6 +1,15 @@
-This is a repository which collects ".bashrc" and ".bash_profile" files Fsu0413 is current using.
+# Fs-customized-bash
 
-This is basically a personal utility project and will be updated any time.
-It is based on .bashrc provided by Ubuntu and MSYS2, with some personal customization (especially PS1).
+This repository collects ".bashrc" and ".bash_profile" files currently used by Fsu0413.
 
-This repository use WTFPLv2.
+It is a personal utility project that will be updated at any time.
+The configurations are based on .bashrc provided by Ubuntu and MSYS2, with personal customizations (especially PS1).
+
+This repository uses the WTFPLv2 license.
+
+## Installation
+To install, run `./install.sh` or source the desired files manually.
+
+## Structure
+- `public/`: Public configuration files
+- `private/`: Private files (not meant to be committed)
