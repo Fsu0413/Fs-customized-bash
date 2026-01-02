@@ -1,40 +1,67 @@
+declare -a FS_CUSTOMIZED_BASH_ENVIRONMENT_CALLBACK_FUNC
+FS_CUSTOMIZED_BASH_ENVIRONMENT_CALLBACK_FUNC_N=0
 
 Fs_Customized_Bash_environment_func()
 {
-	FS_ENV_V=$?
-	if ! [ -z "$MSYSTEM" ]; then
-		# MSYS2 case
-		echo ' '"$MSYSTEM"
-	elif ! [ -z "$TERMUX_VERSION" ]; then
-		# Termux case
-		echo ' Termux_'"$TERMUX_VERSION"
-	elif [ -r /etc/os-release ]; then
-		# on system which features a /etc/os-release in file system, use it
-		# We use the first word of the "NAME" entry
-		(
-			. /etc/os-release
-			ENVIRONMENT_NAME=`echo $NAME | sed 's/^\(.[^[:space:]]*\).*$/\1/'`
-			if ! [ -z "$VERSION_ID" ] ; then
-				ENVIRONMENT_NAME="$ENVIRONMENT_NAME"'_'"$VERSION_ID"
-			fi
-			echo " $ENVIRONMENT_NAME"
-		)
-	else
-		local UNAMES="`uname -s`"
-		if echo $UNAMES | grep -q -F -i "cygwin"; then
-			UNAMES="Cygwin"
-		elif [ "$UNAMES" = "Darwin" ]; then
-			# macOS case?
-			SWVERS="`sw_vers -productVersion`"
-			if [ $? -eq 0 ] && ( ! [ -z "$SWVERS" ] ); then
-				# no plan for supporting pre-10.15
-				UNAMES='macOS_'"$SWVERS"
-			fi
-		elif [ "$UNAMES" = "NetBSD" ]; then
-			# NetBSD kernel version is release version.
-			UNAMES="${UNAMES}_$(uname -r)"
+	local FS_ENV_V=$?
+	local FS_ENV_NUM=0
+	local FS_ENV_NAME=
+
+	# Call callback func to see if there is any configured environment variables
+	for i in $(seq 0 $(expr ${FS_CUSTOMIZED_BASH_ENVIRONMENT_CALLBACK_FUNC_N} '-' 1)); do
+		local -n FS_CUSTOMIZED_BASH_ENVIRONMENT_CALLBACK_FUNC_CURRENT=FS_CUSTOMIZED_BASH_ENVIRONMENT_CALLBACK_FUNC[${i}]
+		local FS_ENV_NAME_RET=`${FS_CUSTOMIZED_BASH_ENVIRONMENT_CALLBACK_FUNC_CURRENT}`
+		if [ $? -eq 0 ] && ! [ "X$FS_ENV_NAME_RET" = "X" ]; then
+			FS_ENV_NAME="${FS_ENV_NAME_RET}"
+			FS_ENV_NUM=`expr ${FS_ENV_NUM} '+' 1`
 		fi
-		echo ' '"$UNAMES"
+	done
+	if [ ${FS_ENV_NUM} -eq 1 ]; then
+		echo ' '"$FS_ENV_NAME"
+	elif [ ${FS_ENV_NUM} -ge 2 ]; then
+		echo ' **MULTIPLE ENVIRONMENT DEFINITION**'
+	else
+		if ! [ -z "$MSYSTEM" ]; then
+			# MSYS2 case
+			echo ' '"$MSYSTEM"
+		elif ! [ -z "$TERMUX_VERSION" ]; then
+			# Termux case
+			echo ' Termux_'"$TERMUX_VERSION"
+		elif [ -r /etc/os-release ]; then
+			# on system which features a /etc/os-release in file system, use it
+			# We use the first word of the "NAME" entry
+			(
+				. /etc/os-release
+				ENVIRONMENT_NAME=`echo $NAME | sed 's/^\(.[^[:space:]]*\).*$/\1/'`
+				if ! [ -z "$VERSION_ID" ] ; then
+					ENVIRONMENT_NAME="$ENVIRONMENT_NAME"'_'"$VERSION_ID"
+				fi
+				echo " $ENVIRONMENT_NAME"
+			)
+		else
+			local UNAMES="`uname -s`"
+			if echo $UNAMES | grep -q -F -i "cygwin"; then
+				UNAMES="Cygwin"
+			elif [ "$UNAMES" = "Darwin" ]; then
+				# macOS case?
+				SWVERS="`sw_vers -productVersion`"
+				if [ $? -eq 0 ] && ( ! [ -z "$SWVERS" ] ); then
+					# no plan for supporting pre-10.15
+					UNAMES='macOS_'"$SWVERS"
+				fi
+			elif [ "$UNAMES" = "NetBSD" ]; then
+				# NetBSD kernel version is release version.
+				UNAMES="${UNAMES}_$(uname -r)"
+			else
+				echo ' '"$UNAMES"
+			fi
+		fi
 	fi
 	return $FS_ENV_V
+}
+
+Fs_Customized_Bash_add_environment_callback()
+{
+	FS_CUSTOMIZED_BASH_ENVIRONMENT_CALLBACK_FUNC[${FS_CUSTOMIZED_BASH_ENVIRONMENT_CALLBACK_FUNC_N}]="$1"
+	FS_CUSTOMIZED_BASH_ENVIRONMENT_CALLBACK_FUNC_N=`expr ${FS_CUSTOMIZED_BASH_ENVIRONMENT_CALLBACK_FUNC_N} '+' 1`
 }
