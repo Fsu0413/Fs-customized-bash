@@ -5,7 +5,7 @@ if command -v ggrep > /dev/null 2> /dev/null; then
 	FS_CUSTOMIZED_BASH_GREP=ggrep
 else
 	# GNU grep support -V for version
-	if grep -V | grep 'GNU grep' > /dev/null 2> /dev/null; then
+	if grep -V | grep -q -F 'GNU grep'; then
 		FS_CUSTOMIZED_BASH_GREP=grep
 	fi
 fi

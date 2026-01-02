@@ -26,17 +26,14 @@ if [ -d "${FS_CUSTOMIZED_BASH_PRIVATE_PATH}/.git" ] ; then
 	return 0
 fi
 
-FS_CUSTOMIZED_BASH_PRIVATE_CACHED_FILENAMES=$(git -C "${FS_CUSTOMIZED_BASH_PRIVATE_PATH}" ls-files)
+FS_CUSTOMIZED_BASH_PRIVATE_CACHED_FILENAMES="$(git -C "${FS_CUSTOMIZED_BASH_PRIVATE_PATH}" ls-files)"
 
 if [ $? -ne 0 ]; then
-	# We are probably not using a Git checkout. But since we detected this... Let it be.
+	# seems unreachable here. But anyway we should check it.
 	unset FS_CUSTOMIZED_BASH_PRIVATE_CACHED_FILENAMES
 	unset FS_CUSTOMIZED_BASH_PRIVATE_PATH
 	return 0
 fi
-
-# kill spaces from this variable
-FS_CUSTOMIZED_BASH_PRIVATE_CACHED_FILENAMES=`echo ${FS_CUSTOMIZED_BASH_PRIVATE_CACHED_FILENAMES}`
 
 if ! [ "x${FS_CUSTOMIZED_BASH_PRIVATE_CACHED_FILENAMES}" = "x99-placeholder" ]; then
 	echo "WARNING: file other than 99-placeholder is submitted or cached in \"${FS_CUSTOMIZED_BASH_ROOT}/private\" folder." >&2

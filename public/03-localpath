@@ -1,6 +1,6 @@
 PATH="/usr/local/bin:${PATH}"
 
-# Ubuntu local binary files use $HOME/bin
+# local binary files use $HOME/bin
 if [ -d "${HOME}/bin" ]; then
 	PATH="${HOME}/bin:${PATH}"
 fi

@@ -1,9 +1,8 @@
 PS1='\[\e]0;\w\a\]\n''\[\e[1;41m\]''`Fs_Customized_Bash_broken_private`''\[\e[0;0m\]''\[\e[1;31m\]''`Fs_Customized_Bash_retval_func`''\[\e[0;33m\]\w''\[\e[0;35m\]''`Fs_Customized_Bash_environment_func`''\[\e[1;36m\]''`__git_ps1`''\[\e[0m\]''\n'"\$"' '
-export PS1
+export PS1 # TODO: confirm the need of exporting PS1 variable - PS2 / PS4 are not exported
 
 PS2='> '
 
-PS3=
 unset PS3
 
 PS4='+ '
