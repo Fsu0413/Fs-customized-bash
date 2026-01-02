@@ -13,7 +13,7 @@ unset FS_CUSTOMIZED_BASH_DIRCOLORS_PER
 if ! [ -z "$FS_CUSTOMIZED_BASH_DIRCOLORS_EXE" ] ; then
 	# maybe "ls --color=auto" can be used to judge it? Non-GNU-Coreutils ls may be not able to recognize "--color" parameter and may just error out.
 	# We may try "gls" first and do not try "ls" if "gls" is available
-	if which -a gls > /dev/null 2> /dev/null ; then
+	if command -v gls > /dev/null 2> /dev/null ; then
 		# gls is found and is being used
 		alias ls="gls --color=auto"
 	elif ls --color=auto /dev/null > /dev/null 2> /dev/null; then

@@ -1,3 +1,3 @@
-if which gfind > /dev/null 2>/dev/null; then
+if command -v gfind > /dev/null 2>/dev/null; then
 	alias find=gfind
 fi
