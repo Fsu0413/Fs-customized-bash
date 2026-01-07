@@ -35,7 +35,7 @@ if [ $? -ne 0 ]; then
 	return 0
 fi
 
-if ! [ "x${FS_CUSTOMIZED_BASH_PRIVATE_CACHED_FILENAMES}" = "x99-placeholder" ]; then
+if ! [ "${FS_CUSTOMIZED_BASH_PRIVATE_CACHED_FILENAMES}" = "99-placeholder" ]; then
 	echo "WARNING: file other than 99-placeholder is submitted or cached in \"${FS_CUSTOMIZED_BASH_ROOT}/private\" folder." >&2
 	echo "This folder should only have the only 99-placeholder file submitted to public repository. Other files are treated as private ones." >&2
 	FS_CUSTOMIZED_BASH_SUBMITTED_FILES_IN_PRIVATE=true

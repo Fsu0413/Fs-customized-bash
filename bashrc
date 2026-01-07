@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ "x${BASH_VERSION}" = "x" ]; then
+if [ "${BASH_VERSION}" = "" ]; then
 	echo "ERROR: BASH_VERSION not defined." >&2
 	echo "Please use BASH for using this script." >&2
 	return 1 2> /dev/null || exit 1
@@ -8,11 +8,11 @@ fi
 
 FS_CUSTOMIZED_BASH_VERSION_SUPPORTED=false
 
-if [ ${BASH_VERSINFO[0]} -eq 4 ]; then
-	if [ ${BASH_VERSINFO[1]} -ge 3 ]; then
+if [ "${BASH_VERSINFO[0]}" -eq 4 ]; then
+	if [ "${BASH_VERSINFO[1]}" -ge 3 ]; then
 		FS_CUSTOMIZED_BASH_VERSION_SUPPORTED=true
 	fi
-elif [ ${BASH_VERSINFO[0]} -ge 5 ]; then
+elif [ "${BASH_VERSINFO[0]}" -ge 5 ]; then
 	FS_CUSTOMIZED_BASH_VERSION_SUPPORTED=true
 fi
 
@@ -71,7 +71,7 @@ Fs_Customized_Bash_log()
 	esac
 
 	# "`echo $@`" is preserved on purpose - word splitting and quoting is expanded
-	local contents="`echo $@`"
+	local contents="$(echo $@)"
 	if $tostderr; then
 		echo -e "$color""$contents""$FS_CUSTOMIZED_BASH_COLOR_CLEAR" >&2
 	else
